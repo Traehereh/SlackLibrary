@@ -105,6 +105,7 @@ class ResetPasswordForm(forms.Form):
         }),
     )
 
+
 class SearchForm(forms.Form):
         CHOICES = [
             (u'ISBN', u'ISBN'),

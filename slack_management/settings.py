@@ -24,7 +24,7 @@ SECRET_KEY = 'izid20ow=+4ibe@+m13czpq+vuewg$dml##)q1erkc)mc=w%&a'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []  # 允许访问的主机地址
 
 # Application definition
 
@@ -54,10 +54,10 @@ ROOT_URLCONF = 'slack_management.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',  # 这个的原理不太明白 还需要学习
+        'DIRS': [],  # 检索的路径
+        'APP_DIRS': True,  # 自动将每个每个app的路径加入
+        'OPTIONS': {  # 不懂
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
@@ -68,36 +68,49 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'slack_management.wsgi.application'
+WSGI_APPLICATION = 'slack_management.wsgi.application'  # 实现通信接口
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
+#使用的数据库
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'library.sqlite3'),
     }
 }
+#
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'slacklibrary',
+#         'USER': 'root',
+#         'PASSWORD': '123456',
+#         'HOST': '127.0.0.1',
+#         'PORT': '3306',
+#     }
+# }
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
 LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'Asia/Shanghai'
+TIME_ZONE = 'Asia/Shanghai'  # 时区
 
-USE_I18N = True
+USE_I18N = True  # ？？
 
-USE_L10N = True
+USE_L10N = True  # ？？
 
-USE_TZ = True
+USE_TZ = True  # ？？
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'  # 静态文件的地址
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')  #
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
