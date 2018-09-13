@@ -54,7 +54,7 @@ ROOT_URLCONF = 'slack_management.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',  # 这个的原理不太明白 还需要学习
+        'BACKEND': 'django.template.backends.django.DjangoTemplates', # 后台页面模板
         'DIRS': [],  # 检索的路径
         'APP_DIRS': True,  # 自动将每个每个app的路径加入
         'OPTIONS': {  # 不懂

@@ -5,7 +5,6 @@ import datetime
 
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
-from django import forms
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -33,7 +32,7 @@ def user_login(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        user = auth.authenticate(username=username, password=password)
+        user = auth.authenticate(username=username, password=password)  # 验证是否通过
 
         if user:
             if user.is_active:
@@ -191,12 +190,16 @@ def reader_operation(request):
 
 
 def book_search(request):
-    search_by = request.GET.get('search_by', '书名')
+    search_by = request.GET.get('search_by', '书名')  # 根据什么来排名 同forms.searchForm  默认值为书名 和dict有点像
     books = []
-    current_path = request.get_full_path()
-
+    current_path = request.get_full_path()  # get_full_path()是用来输出访问的url地址在urls中的路径
+    print('我要输出currrentpath:', current_path)
     keyword = request.GET.get('keyword', u'_书目列表')
+    xix = request.GET.get('xixi')  # 我想要获取嘻嘻
 
+    # 这个是获取 keyword 和 搜索条件的
+    #   如果搜索全书那就Book.objects.all()
+    #   否则的话就判断通过什么条件来搜索
     if keyword == u'_书目列表':
         books = Book.objects.all()
     else:
@@ -209,15 +212,20 @@ def book_search(request):
         elif search_by == u'作者':
             keyword = request.GET.get('keyword', None)
             books = Book.objects.filter(author__contains=keyword).order_by('-title')[0:50]
-
+    # 这是个翻页用的工具 就有点厉害
     paginator = Paginator(books, 5)
     page = request.GET.get('page', 1)
-
+    print(
+        '我要输出一个GET',
+        request.GET
+    )
+    print('我要输出一个page',page)
+    # paginator 管理翻页的工具
     try:
         books = paginator.page(page)
-    except PageNotAnInteger:
+    except PageNotAnInteger:  # 如果输入的不是一个数字
         books = paginator.page(1)
-    except EmptyPage:
+    except EmptyPage:  # 我猜是下表越界
         books = paginator.page(paginator.num_pages)
 
     # ugly solution for &page=2&page=3&page=4
